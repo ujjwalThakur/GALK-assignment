@@ -12,9 +12,8 @@ function App() {
 
   
   useEffect(() => {
-    const collectionRef = collection(db, 'tasks')
     const getTasks = async () => {
-      const querySnapshot = await getDocs(collectionRef)
+      const querySnapshot = await getDocs(collection(db, 'tasks'))
       const removed = []
       const remaining = []
       querySnapshot.docs.forEach((doc) => {
@@ -30,7 +29,7 @@ function App() {
   }, [])
   
   const onSubmitHandler = async (value) => {
-    const docRef = await addDoc(collectionRef, {text: value, status: 'incomplete'})
+    const docRef = await addDoc(collection(db, 'tasks'), {text: value, status: 'incomplete'})
     setTasks([...tasks, { id: docRef.id, text: value, completed: false }])
   }
 
