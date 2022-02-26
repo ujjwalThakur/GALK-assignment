@@ -10,17 +10,17 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const [removedTasks, setRemovedTasks] = useState([])
 
-  const collectionRef = collection(db, 'tasks')
-
+  
   useEffect(() => {
+    const collectionRef = collection(db, 'tasks')
     const getTasks = async () => {
       const querySnapshot = await getDocs(collectionRef)
       const removed = []
       const remaining = []
       querySnapshot.docs.forEach((doc) => {
         const task = doc.data()
-        if (task.status == 'removed') removed.push({ id: doc.id, text: task.text, completed: true })
-        else if(task.status == 'completed') remaining.push({ id: doc.id, text: task.text, completed: true })
+        if (task.status === 'removed') removed.push({ id: doc.id, text: task.text, completed: true })
+        else if(task.status === 'completed') remaining.push({ id: doc.id, text: task.text, completed: true })
         else remaining.push({ id: doc.id, text: task.text, completed: false })
       })
       setTasks(remaining)
@@ -65,4 +65,3 @@ function App() {
 export default App;
 
 
-// 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
